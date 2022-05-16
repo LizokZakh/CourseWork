@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc5b7b337ad548c89e735b3e5e4320a8" Name="Diagram1">
+        <EntityTypeShape EntityType="TheatreModel.hall" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.poster" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.repertoire" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.seat" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.tickets" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.users" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.all_seats" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.all_tikets" Width="1.5" PointX="7.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.free_seats" Width="1.5" PointX="5.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheatreModel.ticket_user" Width="1.5" PointX="7.75" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="TheatreModel.fk_hall_id" ManuallyRouted="false" />
+        <AssociationConnector Association="TheatreModel.fk1_hall_id" ManuallyRouted="false" />
+        <AssociationConnector Association="TheatreModel.fk_entry_id" ManuallyRouted="false" />
+        <AssociationConnector Association="TheatreModel.fk_spectacle_id" ManuallyRouted="false" />
+        <AssociationConnector Association="TheatreModel.fk_seat_id" ManuallyRouted="false" />
+        <AssociationConnector Association="TheatreModel.fk_id_user" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

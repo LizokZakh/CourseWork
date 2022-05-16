@@ -1,0 +1,737 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TheatreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "Theatre.dbo.admin" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="admin">
+          <Property Name="id_user" Type="int" />
+        </EntityType>-->
+        <EntityType Name="hall">
+          <Key>
+            <PropertyRef Name="hall_id" />
+          </Key>
+          <Property Name="hall_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="poster">
+          <Key>
+            <PropertyRef Name="entry_id" />
+          </Key>
+          <Property Name="entry_id" Type="int" Nullable="false" />
+          <Property Name="spectacle_id" Type="int" Nullable="false" />
+          <Property Name="hall_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="repertoire">
+          <Key>
+            <PropertyRef Name="spectacle_id" />
+          </Key>
+          <Property Name="spectacle_id" Type="int" Nullable="false" />
+          <Property Name="spectacle_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="genre" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="lasting" Type="time" Precision="7" Nullable="false" />
+          <Property Name="posters" Type="varbinary(max)" />
+          <Property Name="price" Type="money" />
+        </EntityType>
+        <EntityType Name="seat">
+          <Key>
+            <PropertyRef Name="seat_id" />
+          </Key>
+          <Property Name="seat_id" Type="int" Nullable="false" />
+          <Property Name="seat" Type="int" Nullable="false" />
+          <Property Name="row" Type="int" Nullable="false" />
+          <Property Name="hall_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="num_ticket" />
+          </Key>
+          <Property Name="num_ticket" Type="int" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="entry_id" Type="int" Nullable="false" />
+          <Property Name="seat_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="secondname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Theatre.dbo.all_seats" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="all_seats">
+          <Key>
+            <PropertyRef Name="entry_id" />
+            <PropertyRef Name="spectacle_id" />
+            <PropertyRef Name="spectacle_name" />
+            <PropertyRef Name="seat_id" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="entry_id" Type="int" Nullable="false" />
+          <Property Name="spectacle_id" Type="int" Nullable="false" />
+          <Property Name="spectacle_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="seat_id" Type="int" Nullable="false" />
+          <Property Name="seat" Type="int" Nullable="false" />
+          <Property Name="row" Type="int" Nullable="false" />
+          <Property Name="hall_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Theatre.dbo.all_tikets" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="all_tikets">
+          <Key>
+            <PropertyRef Name="num_ticket" />
+            <PropertyRef Name="spectacle_id" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="num_ticket" Type="int" Nullable="false" />
+          <Property Name="spectacle_id" Type="int" Nullable="false" />
+          <Property Name="seat" Type="int" Nullable="false" />
+          <Property Name="row" Type="int" Nullable="false" />
+          <Property Name="hall_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Theatre.dbo.free_seats" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="free_seats">
+          <Key>
+            <PropertyRef Name="spectacle_id" />
+            <PropertyRef Name="spectacle_name" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="entry_id" />
+          </Key>
+          <Property Name="spectacle_id" Type="int" Nullable="false" />
+          <Property Name="spectacle_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="seat" Type="int" Nullable="false" />
+          <Property Name="row" Type="int" Nullable="false" />
+          <Property Name="hall_id" Type="int" Nullable="false" />
+          <Property Name="num_ticket" Type="int" />
+          <Property Name="entry_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Theatre.dbo.ticket_user" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="ticket_user">
+          <Key>
+            <PropertyRef Name="num_ticket" />
+            <PropertyRef Name="spectacle_name" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="num_ticket" Type="int" Nullable="false" />
+          <Property Name="spectacle_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="seat" Type="int" Nullable="false" />
+          <Property Name="row" Type="int" Nullable="false" />
+          <Property Name="hall_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" />
+          <Property Name="price" Type="money" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "Theatre.dbo.admin", на которую ссылается связь.
+        <Association Name="FK__admin__id_user__35BCFE0A" />-->
+        <Association Name="fk_entry_id">
+          <End Role="poster" Type="Self.poster" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="poster">
+              <PropertyRef Name="entry_id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="entry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_hall_id">
+          <End Role="hall" Type="Self.hall" Multiplicity="1" />
+          <End Role="poster" Type="Self.poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="hall_id" />
+            </Principal>
+            <Dependent Role="poster">
+              <PropertyRef Name="hall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seat_id">
+          <End Role="seat" Type="Self.seat" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="seat">
+              <PropertyRef Name="seat_id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="seat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_spectacle_id">
+          <End Role="repertoire" Type="Self.repertoire" Multiplicity="1" />
+          <End Role="poster" Type="Self.poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="repertoire">
+              <PropertyRef Name="spectacle_id" />
+            </Principal>
+            <Dependent Role="poster">
+              <PropertyRef Name="spectacle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk1_hall_id">
+          <End Role="hall" Type="Self.hall" Multiplicity="1" />
+          <End Role="seat" Type="Self.seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="hall_id" />
+            </Principal>
+            <Dependent Role="seat">
+              <PropertyRef Name="hall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TheatreModelContainer">
+          <EntitySet Name="hall" EntityType="Self.hall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="poster" EntityType="Self.poster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="repertoire" EntityType="Self.repertoire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seat" EntityType="Self.seat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="all_seats" EntityType="Self.all_seats" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [all_seats].[entry_id] AS [entry_id], 
+    [all_seats].[spectacle_id] AS [spectacle_id], 
+    [all_seats].[spectacle_name] AS [spectacle_name], 
+    [all_seats].[seat_id] AS [seat_id], 
+    [all_seats].[seat] AS [seat], 
+    [all_seats].[row] AS [row], 
+    [all_seats].[hall_id] AS [hall_id], 
+    [all_seats].[date] AS [date], 
+    [all_seats].[time] AS [time]
+    FROM [dbo].[all_seats] AS [all_seats]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="all_tikets" EntityType="Self.all_tikets" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [all_tikets].[num_ticket] AS [num_ticket], 
+    [all_tikets].[spectacle_id] AS [spectacle_id], 
+    [all_tikets].[seat] AS [seat], 
+    [all_tikets].[row] AS [row], 
+    [all_tikets].[hall_id] AS [hall_id], 
+    [all_tikets].[date] AS [date], 
+    [all_tikets].[time] AS [time]
+    FROM [dbo].[all_tikets] AS [all_tikets]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="free_seats" EntityType="Self.free_seats" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [free_seats].[spectacle_id] AS [spectacle_id], 
+    [free_seats].[spectacle_name] AS [spectacle_name], 
+    [free_seats].[seat] AS [seat], 
+    [free_seats].[row] AS [row], 
+    [free_seats].[hall_id] AS [hall_id], 
+    [free_seats].[num_ticket] AS [num_ticket], 
+    [free_seats].[entry_id] AS [entry_id]
+    FROM [dbo].[free_seats] AS [free_seats]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ticket_user" EntityType="Self.ticket_user" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ticket_user].[num_ticket] AS [num_ticket], 
+    [ticket_user].[spectacle_name] AS [spectacle_name], 
+    [ticket_user].[seat] AS [seat], 
+    [ticket_user].[row] AS [row], 
+    [ticket_user].[hall_id] AS [hall_id], 
+    [ticket_user].[date] AS [date], 
+    [ticket_user].[time] AS [time], 
+    [ticket_user].[price] AS [price]
+    FROM [dbo].[ticket_user] AS [ticket_user]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_entry_id" Association="Self.fk_entry_id">
+            <End Role="poster" EntitySet="poster" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_hall_id" Association="Self.fk_hall_id">
+            <End Role="hall" EntitySet="hall" />
+            <End Role="poster" EntitySet="poster" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_user" Association="Self.fk_id_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seat_id" Association="Self.fk_seat_id">
+            <End Role="seat" EntitySet="seat" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_spectacle_id" Association="Self.fk_spectacle_id">
+            <End Role="repertoire" EntitySet="repertoire" />
+            <End Role="poster" EntitySet="poster" />
+          </AssociationSet>
+          <AssociationSet Name="fk1_hall_id" Association="Self.fk1_hall_id">
+            <End Role="hall" EntitySet="hall" />
+            <End Role="seat" EntitySet="seat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TheatreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="hall">
+          <Key>
+            <PropertyRef Name="hall_id" />
+          </Key>
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="poster" Relationship="Self.fk_hall_id" FromRole="hall" ToRole="poster" />
+          <NavigationProperty Name="seat" Relationship="Self.fk1_hall_id" FromRole="hall" ToRole="seat" />
+        </EntityType>
+        <EntityType Name="poster">
+          <Key>
+            <PropertyRef Name="entry_id" />
+          </Key>
+          <Property Name="entry_id" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_id" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <NavigationProperty Name="hall" Relationship="Self.fk_hall_id" FromRole="poster" ToRole="hall" />
+          <NavigationProperty Name="tickets" Relationship="Self.fk_entry_id" FromRole="poster" ToRole="tickets" />
+          <NavigationProperty Name="repertoire" Relationship="Self.fk_spectacle_id" FromRole="poster" ToRole="repertoire" />
+        </EntityType>
+        <EntityType Name="repertoire">
+          <Key>
+            <PropertyRef Name="spectacle_id" />
+          </Key>
+          <Property Name="spectacle_id" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="genre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lasting" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="posters" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="poster" Relationship="Self.fk_spectacle_id" FromRole="repertoire" ToRole="poster" />
+        </EntityType>
+        <EntityType Name="seat">
+          <Key>
+            <PropertyRef Name="seat_id" />
+          </Key>
+          <Property Name="seat_id" Type="Int32" Nullable="false" />
+          <Property Name="seat1" Type="Int32" Nullable="false" />
+          <Property Name="row" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="hall" Relationship="Self.fk1_hall_id" FromRole="seat" ToRole="hall" />
+          <NavigationProperty Name="tickets" Relationship="Self.fk_seat_id" FromRole="seat" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="num_ticket" />
+          </Key>
+          <Property Name="num_ticket" Type="Int32" Nullable="false" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="entry_id" Type="Int32" Nullable="false" />
+          <Property Name="seat_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="poster" Relationship="Self.fk_entry_id" FromRole="tickets" ToRole="poster" />
+          <NavigationProperty Name="seat" Relationship="Self.fk_seat_id" FromRole="tickets" ToRole="seat" />
+          <NavigationProperty Name="users" Relationship="Self.fk_id_user" FromRole="tickets" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="secondname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tickets" Relationship="Self.fk_id_user" FromRole="users" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="all_seats">
+          <Key>
+            <PropertyRef Name="entry_id" />
+            <PropertyRef Name="spectacle_id" />
+            <PropertyRef Name="spectacle_name" />
+            <PropertyRef Name="seat_id" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="entry_id" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_id" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="seat_id" Type="Int32" Nullable="false" />
+          <Property Name="seat" Type="Int32" Nullable="false" />
+          <Property Name="row" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="all_tikets">
+          <Key>
+            <PropertyRef Name="num_ticket" />
+            <PropertyRef Name="spectacle_id" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="num_ticket" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_id" Type="Int32" Nullable="false" />
+          <Property Name="seat" Type="Int32" Nullable="false" />
+          <Property Name="row" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="free_seats">
+          <Key>
+            <PropertyRef Name="spectacle_id" />
+            <PropertyRef Name="spectacle_name" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="entry_id" />
+          </Key>
+          <Property Name="spectacle_id" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="seat" Type="Int32" Nullable="false" />
+          <Property Name="row" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <Property Name="num_ticket" Type="Int32" />
+          <Property Name="entry_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ticket_user">
+          <Key>
+            <PropertyRef Name="num_ticket" />
+            <PropertyRef Name="spectacle_name" />
+            <PropertyRef Name="seat" />
+            <PropertyRef Name="row" />
+            <PropertyRef Name="hall_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="num_ticket" Type="Int32" Nullable="false" />
+          <Property Name="spectacle_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="seat" Type="Int32" Nullable="false" />
+          <Property Name="row" Type="Int32" Nullable="false" />
+          <Property Name="hall_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <Association Name="fk_hall_id">
+          <End Role="hall" Type="Self.hall" Multiplicity="1" />
+          <End Role="poster" Type="Self.poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="hall_id" />
+            </Principal>
+            <Dependent Role="poster">
+              <PropertyRef Name="hall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk1_hall_id">
+          <End Role="hall" Type="Self.hall" Multiplicity="1" />
+          <End Role="seat" Type="Self.seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hall">
+              <PropertyRef Name="hall_id" />
+            </Principal>
+            <Dependent Role="seat">
+              <PropertyRef Name="hall_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_entry_id">
+          <End Role="poster" Type="Self.poster" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="poster">
+              <PropertyRef Name="entry_id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="entry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_spectacle_id">
+          <End Role="repertoire" Type="Self.repertoire" Multiplicity="1" />
+          <End Role="poster" Type="Self.poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="repertoire">
+              <PropertyRef Name="spectacle_id" />
+            </Principal>
+            <Dependent Role="poster">
+              <PropertyRef Name="spectacle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seat_id">
+          <End Role="seat" Type="Self.seat" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="seat">
+              <PropertyRef Name="seat_id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="seat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TheatreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="hall" EntityType="Self.hall" />
+          <EntitySet Name="poster" EntityType="Self.poster" />
+          <EntitySet Name="repertoire" EntityType="Self.repertoire" />
+          <EntitySet Name="seat" EntityType="Self.seat" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="all_seats" EntityType="Self.all_seats" />
+          <EntitySet Name="all_tikets" EntityType="Self.all_tikets" />
+          <EntitySet Name="free_seats" EntityType="Self.free_seats" />
+          <EntitySet Name="ticket_user" EntityType="Self.ticket_user" />
+          <AssociationSet Name="fk_hall_id" Association="Self.fk_hall_id">
+            <End Role="hall" EntitySet="hall" />
+            <End Role="poster" EntitySet="poster" />
+          </AssociationSet>
+          <AssociationSet Name="fk1_hall_id" Association="Self.fk1_hall_id">
+            <End Role="hall" EntitySet="hall" />
+            <End Role="seat" EntitySet="seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_entry_id" Association="Self.fk_entry_id">
+            <End Role="poster" EntitySet="poster" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_spectacle_id" Association="Self.fk_spectacle_id">
+            <End Role="repertoire" EntitySet="repertoire" />
+            <End Role="poster" EntitySet="poster" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seat_id" Association="Self.fk_seat_id">
+            <End Role="seat" EntitySet="seat" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_user" Association="Self.fk_id_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheatreModelContainer" CdmEntityContainer="TheatreEntities">
+          <EntitySetMapping Name="hall">
+            <EntityTypeMapping TypeName="TheatreModel.hall">
+              <MappingFragment StoreEntitySet="hall">
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="poster">
+            <EntityTypeMapping TypeName="TheatreModel.poster">
+              <MappingFragment StoreEntitySet="poster">
+                <ScalarProperty Name="entry_id" ColumnName="entry_id" />
+                <ScalarProperty Name="spectacle_id" ColumnName="spectacle_id" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="repertoire">
+            <EntityTypeMapping TypeName="TheatreModel.repertoire">
+              <MappingFragment StoreEntitySet="repertoire">
+                <ScalarProperty Name="spectacle_id" ColumnName="spectacle_id" />
+                <ScalarProperty Name="spectacle_name" ColumnName="spectacle_name" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
+                <ScalarProperty Name="lasting" ColumnName="lasting" />
+                <ScalarProperty Name="posters" ColumnName="posters" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seat">
+            <EntityTypeMapping TypeName="TheatreModel.seat">
+              <MappingFragment StoreEntitySet="seat">
+                <ScalarProperty Name="seat_id" ColumnName="seat_id" />
+                <ScalarProperty Name="seat1" ColumnName="seat" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TheatreModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="TheatreModel.tickets">
+              <MappingFragment StoreEntitySet="tickets">
+                <ScalarProperty Name="num_ticket" ColumnName="num_ticket" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="entry_id" ColumnName="entry_id" />
+                <ScalarProperty Name="seat_id" ColumnName="seat_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="TheatreModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="secondname" ColumnName="secondname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="all_seats">
+            <EntityTypeMapping TypeName="TheatreModel.all_seats">
+              <MappingFragment StoreEntitySet="all_seats">
+                <ScalarProperty Name="entry_id" ColumnName="entry_id" />
+                <ScalarProperty Name="spectacle_id" ColumnName="spectacle_id" />
+                <ScalarProperty Name="spectacle_name" ColumnName="spectacle_name" />
+                <ScalarProperty Name="seat_id" ColumnName="seat_id" />
+                <ScalarProperty Name="seat" ColumnName="seat" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="all_tikets">
+            <EntityTypeMapping TypeName="TheatreModel.all_tikets">
+              <MappingFragment StoreEntitySet="all_tikets">
+                <ScalarProperty Name="num_ticket" ColumnName="num_ticket" />
+                <ScalarProperty Name="spectacle_id" ColumnName="spectacle_id" />
+                <ScalarProperty Name="seat" ColumnName="seat" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="free_seats">
+            <EntityTypeMapping TypeName="TheatreModel.free_seats">
+              <MappingFragment StoreEntitySet="free_seats">
+                <ScalarProperty Name="spectacle_id" ColumnName="spectacle_id" />
+                <ScalarProperty Name="spectacle_name" ColumnName="spectacle_name" />
+                <ScalarProperty Name="seat" ColumnName="seat" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+                <ScalarProperty Name="num_ticket" ColumnName="num_ticket" />
+                <ScalarProperty Name="entry_id" ColumnName="entry_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ticket_user">
+            <EntityTypeMapping TypeName="TheatreModel.ticket_user">
+              <MappingFragment StoreEntitySet="ticket_user">
+                <ScalarProperty Name="num_ticket" ColumnName="num_ticket" />
+                <ScalarProperty Name="spectacle_name" ColumnName="spectacle_name" />
+                <ScalarProperty Name="seat" ColumnName="seat" />
+                <ScalarProperty Name="row" ColumnName="row" />
+                <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

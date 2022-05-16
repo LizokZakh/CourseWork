@@ -1,0 +1,56 @@
+﻿<Page x:Class="CourseWork.Cash_registr"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseWork"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Cash_registr">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <!--<RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>-->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="224"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Название спектакля" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="204" FontSize="20"/>
+        <TextBlock Text="Дата" HorizontalAlignment="Left" Height="37" Margin="10,9.6,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="1"/>
+        <TextBlock Text="Время" HorizontalAlignment="Left" Height="37" Margin="10,9.2,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="2"/>
+        <TextBlock Text="Зал" HorizontalAlignment="Left" Height="37" Margin="10,9.8,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="3"/>
+        <TextBlock Text="Ряд" HorizontalAlignment="Left" Height="37" Margin="10,9.6,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="4"/>
+        <TextBlock Text="Место" HorizontalAlignment="Left" Height="37" Margin="10,9.6,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="5"/>
+        <ComboBox x:Name="ComboSpectacle" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" VerticalAlignment="Top" Width="556" SelectionChanged="ComboSpectacle_SelectionChanged"
+                  DisplayMemberPath="spectacle_name" SelectedValuePath="spectacle_id" SelectedValue="{Binding spectacle_id}"/>
+        <ComboBox x:Name="ComboDate" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="10,0.6,0,0" VerticalAlignment="Top" Width="556" Grid.Row="1" SelectionChanged="ComboDate_SelectionChanged"
+                  DisplayMemberPath="date" SelectedValuePath="entry_id" SelectedValue="{Binding entry_id}"/>
+        <!--<DatePicker x:Name="PickDate" Grid.Column="1" HorizontalAlignment="Left" Height="71" Margin="10,9.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="556" DisplayMemberPath="spectacle_name" SelectedValuePath="spectacle_id"/>-->
+        <ComboBox x:Name="ComboTime" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="10,0.2,0,0" VerticalAlignment="Top" Width="556" Grid.Row="2" SelectionChanged="ComboTime_SelectionChanged"
+                  DisplayMemberPath="time" SelectedValuePath="entry_id" SelectedValue="{Binding entry_id}"/>
+        <ComboBox x:Name="ComboHall" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="10,0.8,0,0" VerticalAlignment="Top" Width="556" Grid.Row="3" SelectionChanged="ComboHall_SelectionChanged"
+                  DisplayMemberPath="hall_id" SelectedValuePath="hall_id" SelectedValue="{Binding hall_id}"/>
+        <ComboBox x:Name="ComboRow" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="10,0.8,0,0" VerticalAlignment="Top" Width="556" Grid.Row="4" SelectionChanged="ComboRow_SelectionChanged"
+                  DisplayMemberPath="row" SelectedValuePath="row" SelectedValue="{Binding row}"/>
+        <ComboBox x:Name="ComboSeat" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="10,0.8,0,0" VerticalAlignment="Top" Width="556" Grid.Row="5"
+                  DisplayMemberPath="seat" SelectedValuePath="seat"/>
+        <!--<TextBlock Text="Имя" HorizontalAlignment="Left" Height="37" Margin="10,9.4,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="5"/>
+        <TextBlock Text="Отчество" HorizontalAlignment="Left" Height="37" Margin="10,9.4,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="6"/>
+        <TextBlock Text="Телефон" HorizontalAlignment="Left" Height="37" Margin="10,9.4,0,0" VerticalAlignment="Top" Width="204" FontSize="20" Grid.Row="7"/>-->
+        <Button Content="Купить билет" Grid.Row="6" Name="ButCash" Margin="10,0.4,298,9.6" Grid.Column="1" Click="ButCash_Click"/>
+        <!--<RadioButton Content="Зал 1" HorizontalAlignment="Left" Height="44" Margin="88,116,0,0" VerticalAlignment="Top" Width="217"/>
+        <RadioButton Content="Зал 2" HorizontalAlignment="Left" Height="48" Margin="88,214,0,0" VerticalAlignment="Top" Width="217"/>-->
+
+    </Grid>
+</Page>

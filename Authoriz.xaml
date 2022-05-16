@@ -1,0 +1,21 @@
+﻿<Page x:Class="CourseWork.Authoriz"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseWork"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Authoriz">
+
+    <Grid>
+        <Button Content="Войти" HorizontalAlignment="Center" Height="59" Margin="296,290,291,100.6" VerticalAlignment="Center" Width="213" FontSize="20" Click="Button_Click"/>
+        <Label Content="Логин:" HorizontalAlignment="Center" Height="42" Margin="117,148,614,259.6" VerticalAlignment="Center" Width="69" FontSize="20"/>
+        <Label Content="Пароль:" HorizontalAlignment="Center" Height="40" Margin="117,190,600,219.6" VerticalAlignment="Center" Width="83" FontSize="20"/>
+        <TextBox Name="login" HorizontalAlignment="Center" Height="32" Margin="222,148,208,269.6" TextWrapping="Wrap" VerticalAlignment="Center" Width="370" FontFamily="Arial"/>
+        <PasswordBox Name ="password" PasswordChar="*" HorizontalAlignment="Center" Height="32" Margin="222,190,208,227.6" VerticalAlignment="Center" Width="370" RenderTransformOrigin="0.371,1.881">
+        </PasswordBox>
+        <Label Content="Авторизация" HorizontalAlignment="Center" Height="48" Margin="320,10,317,391.6" VerticalAlignment="Center" Width="163" FontSize="24" FontFamily="Segoe UI Semibold"/>
+        <Button Content="Ещё нет аккаунта?" HorizontalAlignment="Center" Height="59" Margin="296,354,291,36.6" VerticalAlignment="Center" Width="213" BorderBrush="White" Background="White" Click="Registr_Click"/>
+    </Grid>
+</Page>
